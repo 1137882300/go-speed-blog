@@ -1,6 +1,6 @@
 'use client'
 
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card"
 import {Switch} from "@/components/ui/switch"
 import {Label} from "@/components/ui/label"
@@ -47,18 +47,19 @@ export function SpeedTestToggleComponent() {
   const [testing, setTesting] = useState(true)
   const [fastestDomain, setFastestDomain] = useState('')
   const [autoRedirect, setAutoRedirect] = useState(false)
-  const [visitorCount, setVisitorCount] = useState(673) // Starting with the count from the image
+  const [visitorCount, setVisitorCount] = useState(673)
 
-  const testSpeed = async (domain: string): Promise<number> => {
+  // 将 testSpeed 移到 useCallback 中
+  const testSpeed = useCallback(async (domain: string): Promise<number> => {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
 
     try {
       const start = performance.now();
       await fetch(domain, {
         mode: 'no-cors',
         signal: controller.signal,
-        cache: 'no-store' // 禁用缓存
+        cache: 'no-store'
       });
       const end = performance.now();
       clearTimeout(timeoutId);
@@ -67,15 +68,12 @@ export function SpeedTestToggleComponent() {
       console.error(`Error testing ${domain}:`, error);
       return Infinity;
     }
-  }
+  }, [])
 
-  // 修改 runSpeedTests 函数
-  const runSpeedTests = async () => {
+  const runSpeedTests = useCallback(async () => {
     const results: { [key: string]: number } = {};
     
-    // 并行执行所有测速
     const tests = domains.map(async (domain) => {
-      // 进行多次测试取平均值
       const attempts = 2;
       let totalTime = 0;
       
@@ -90,19 +88,20 @@ export function SpeedTestToggleComponent() {
     await Promise.all(tests);
     setSpeeds(results);
     
-    const validResults = Object.entries(results).filter(([_, speed]) => speed !== Infinity);
+    // 使用 TypeScript 的忽略参数语法
+    const validResults = Object.entries(results).filter(([, speed]) => speed !== Infinity);
     if (validResults.length > 0) {
       const fastest = validResults.reduce((a, b) => a[1] < b[1] ? a : b)[0];
       setFastestDomain(fastest);
     }
     
     setTesting(false);
-  }
+  }, [testSpeed])
 
   useEffect(() => {
     runSpeedTests()
     setVisitorCount(prev => prev + 1) // Increment visitor count
-  }, [])
+  }, [runSpeedTests])
 
   useEffect(() => {
     if (fastestDomain && autoRedirect) {
