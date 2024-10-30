@@ -47,7 +47,7 @@ export function SpeedTestToggleComponent() {
   const [speeds, setSpeeds] = useState<{ [key: string]: number }>({})
   const [testing, setTesting] = useState(true)
   const [fastestDomain, setFastestDomain] = useState('')
-  const [autoRedirect, setAutoRedirect] = useState(true)
+  const [autoRedirect, setAutoRedirect] = useState(false)
   const [visitorCount, setVisitorCount] = useState(673)
 
   // 将 testSpeed 移到 useCallback 中
