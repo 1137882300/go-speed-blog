@@ -9,6 +9,7 @@ import Image from 'next/image'
 
 const domains = [
   'https://blog.923828.xyz',
+  'https://blog.923828.tech',
   'https://blog.robus.us.kg',
   'https://tc.blog.923828.xyz',
   'https://cf.blog.923828.xyz',
