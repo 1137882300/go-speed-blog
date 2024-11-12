@@ -121,35 +121,35 @@ export function SpeedTestToggleComponent() {
   }, [fastestDomain, autoRedirect])
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+      <Card className="w-full max-w-md shadow-md">
+        <CardHeader className="text-center pb-4">
+          <div className="flex justify-center mb-2">
             <Image
               src="/favicon-256.ico"
               alt="Avatar"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
               className="rounded-full"
             />
           </div>
-          <CardTitle className="text-2xl font-bold">BlogCDN 智能访问网关</CardTitle>
-          <CardDescription>测试域名速度并选择最快的域名</CardDescription>
+          <CardTitle className="text-xl font-bold">BlogCDN 智能访问网关</CardTitle>
+          <CardDescription className="text-sm">测速并选择最快的域名</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-2 pb-4">
           {testing ? (
-            <div className="flex flex-col items-center space-y-4">
-              <Loader2 className="h-8 w-8 animate-spin"/>
-              <p>测速中...</p>
+            <div className="flex flex-col items-center space-y-2">
+              <Loader2 className="h-6 w-6 animate-spin"/>
+              <p className="text-sm">测速中...</p>
             </div>
           ) : (
-            <div className="space-y-4">
-              <h3 className="font-semibold text-center">测速结果 (毫秒):</h3>
-              <ul className="space-y-2">
+            <div className="space-y-3">
+              <h3 className="font-semibold text-center text-sm">测速结果 (毫秒):</h3>
+              <ul className="space-y-1">
                 {Object.entries(speeds).map(([domain, speed]) => (
                   <li 
                     key={domain} 
-                    className="flex justify-between items-center cursor-pointer hover:bg-gray-100 p-2 rounded"
+                    className="flex justify-between items-center cursor-pointer hover:bg-gray-100 p-1 rounded text-sm"
                     onClick={() => handleDomainClick(domain)}
                   >
                     <span>{domain.split('//')[1]}</span>
@@ -165,21 +165,21 @@ export function SpeedTestToggleComponent() {
                   checked={autoRedirect}
                   onCheckedChange={setAutoRedirect}
                 />
-                <Label htmlFor="auto-redirect">自动跳转</Label>
+                <Label htmlFor="auto-redirect" className="text-sm">自动跳转</Label>
               </div>
               {autoRedirect && (
-                <p className="text-center mt-4">
+                <p className="text-center text-sm text-gray-500">
                   即将跳转到最快的域名: {fastestDomain.split('//')[1]}
                 </p>
               )}
               {selectedDomain && (
-                <p className="text-center mt-4 text-sm text-gray-500">
+                <p className="text-center text-xs text-gray-500">
                   已选择域名: {selectedDomain.split('//')[1]}
                 </p>
               )}
             </div>
           )}
-          <p className="text-center mt-4 text-sm text-gray-500">
+          <p className="text-center mt-2 text-xs text-gray-500">
             今日访问人数: {visitorCount}
           </p>
         </CardContent>
