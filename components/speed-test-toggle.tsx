@@ -9,7 +9,6 @@ import Image from 'next/image'
 
 const domains = [
   'https://blog.923828.xyz',
-  'https://blog.923828.tech',
   'https://blog.robus.us.kg',
   'https://tc.blog.923828.xyz',
   'https://cf.blog.923828.xyz',
@@ -53,6 +52,8 @@ export function SpeedTestToggleComponent() {
   const [fastestDomain, setFastestDomain] = useState('')
   const [autoRedirect, setAutoRedirect] = useState(false)
   const [visitorCount, setVisitorCount] = useState(673)
+  // 新增：记录用户选择的域名
+  const [selectedDomain, setSelectedDomain] = useState<string | null>(null)
 
   // 将 testSpeed 移到 useCallback 中
   const testSpeed = useCallback(async (domain: string): Promise<number> => {
@@ -93,7 +94,6 @@ export function SpeedTestToggleComponent() {
     await Promise.all(tests);
     setSpeeds(results);
     
-    // 使用 TypeScript 的忽略参数语法
     const validResults = Object.entries(results).filter(([, speed]) => speed !== Infinity);
     if (validResults.length > 0) {
       const fastest = validResults.reduce((a, b) => a[1] < b[1] ? a : b)[0];
@@ -102,6 +102,12 @@ export function SpeedTestToggleComponent() {
     
     setTesting(false);
   }, [testSpeed])
+
+  // 新增：处理域名跳转的函数
+  const handleDomainClick = (domain: string) => {
+    setSelectedDomain(domain)
+    window.open(domain, '_blank')
+  }
 
   useEffect(() => {
     runSpeedTests()
@@ -141,7 +147,11 @@ export function SpeedTestToggleComponent() {
               <h3 className="font-semibold text-center">测速结果 (毫秒):</h3>
               <ul className="space-y-2">
                 {Object.entries(speeds).map(([domain, speed]) => (
-                  <li key={domain} className="flex justify-between items-center">
+                  <li 
+                    key={domain} 
+                    className="flex justify-between items-center cursor-pointer hover:bg-gray-100 p-2 rounded"
+                    onClick={() => handleDomainClick(domain)}
+                  >
                     <span>{domain.split('//')[1]}</span>
                     <span className={`font-medium ${getSpeedColorClass(speed)}`}>
                       {speed === Infinity ? '超时' : `${speed.toFixed(0)}ms`}
@@ -160,6 +170,11 @@ export function SpeedTestToggleComponent() {
               {autoRedirect && (
                 <p className="text-center mt-4">
                   即将跳转到最快的域名: {fastestDomain.split('//')[1]}
+                </p>
+              )}
+              {selectedDomain && (
+                <p className="text-center mt-4 text-sm text-gray-500">
+                  已选择域名: {selectedDomain.split('//')[1]}
                 </p>
               )}
             </div>
