@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BlogCDN 智能访问网关
 
-## Getting Started
+## 项目简介
 
-First, run the development server:
+这是一个基于 Next.js 的博客智能访问网关，提供以下核心功能：
+
+- 🚀 多域名智能测速
+- 🔄 自动选择最快域名
+- 🖱️ 手动选择域名访问
+- 📊 实时访问人数统计
+
+## 功能详细说明
+
+### 域名测速
+- 自动测试预配置的多个博客域名
+- 测量每个域名的响应速度
+- 使用颜色标记域名速度等级
+  - 绿色：快速 (<500ms)
+  - 黄色：中等 (500-1000ms)
+  - 红色：较慢 (>1000ms)
+  - 灰色：超时
+
+### 访问模式
+1. 自动模式
+   - 可通过开关控制
+   - 自动跳转到最快的域名
+
+2. 手动模式
+   - 点击任意域名
+   - 在新标签页打开
+   - 显示已选择的域名
+
+### 访问统计
+- 实时记录今日访问人数
+- 每次加载页面自动递增
+
+## 技术栈
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- shadcn/ui 组件库
+
+## 快速开始
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 部署
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+可以直接部署到 Vercel 平台
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 贡献
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+欢迎提交 PR 和 Issue！
