@@ -16,6 +16,7 @@ const domains = [
   'https://zeaburblog.923828.xyz',
   'https://astro.blog.923828.xyz',
   'https://vercel.blog.923828.xyz',
+  'https://www.crab666.cloudns.biz',
   'https://astro-cf.blog.923828.xyz',
   'https://blog.crab888.cloudns.org',
   'https://blog.crab6688.cloudns.org',
