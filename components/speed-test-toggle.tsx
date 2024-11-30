@@ -8,17 +8,17 @@ import {Loader2} from "lucide-react"
 import Image from 'next/image'
 
 const domains = [
+  'https://hblog.923828.xyz',
+  'https://blog.crab888.cloudns.org',
   'https://blog.923828.xyz',
   'https://blog.robus.us.kg',
   'https://tc.blog.923828.xyz',
   'https://cf.blog.923828.xyz',
-  'https://1137882300.github.io',
+  'https://airobus.github.io',
   'https://zeaburblog.923828.xyz',
-  'https://astro.blog.923828.xyz',
   'https://vercel.blog.923828.xyz',
   'https://www.crab666.cloudns.biz',
   'https://astro-cf.blog.923828.xyz',
-  'https://blog.crab888.cloudns.org',
   'https://blog.crab6688.cloudns.org',
 ]
 
